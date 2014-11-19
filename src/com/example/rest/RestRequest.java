@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.util.Log;
 import com.google.gson.Gson;
 
 import android.util.Base64;
@@ -43,6 +44,7 @@ public class RestRequest {
 
     private void processResponse(HttpResponse response) {
         StatusLine statusLine = response.getStatusLine();
+        Log.i("StatusCode", statusLine.getStatusCode()+"");
         restResponse.setStatusCode(statusLine.getStatusCode());
         restResponse.setContent(this.getContent(response));
     }
@@ -97,6 +99,9 @@ public class RestRequest {
 
     @SuppressLint({ "NewApi", "NewApi", "NewApi" })
     public RestResponse post(String url, String json) {
+
+
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -108,9 +113,17 @@ public class RestRequest {
         try {
             httpPost.setEntity(this.setContent(json));
             HttpResponse response = client.execute(httpPost);
+            Log.i("url request TESTE ", url);
             this.processResponse(response);
+
         } catch (ClientProtocolException e) {
-        } catch (IOException e) {}
+            Log.i("ClientProtocolException ", e.getMessage());
+        } catch (IOException e) {
+            Log.i("IOException ", e.getMessage());
+        }
+
+
+        //Log.i("getContent", restResponse.getContent());
 
         return restResponse;
     }

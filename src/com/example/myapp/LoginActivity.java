@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -98,6 +99,9 @@ public class LoginActivity extends Activity {
 
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+        public UserLoginTask() {
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
 
@@ -105,7 +109,13 @@ public class LoginActivity extends Activity {
             usuario.setEmail(mEmail);
             usuario.setSenha(mPassword);
 
-            return usuario.login(getApplicationContext());
+            boolean res = usuario.login(getApplicationContext());
+
+            Log.i("res", res+"");
+
+
+
+            return res;
         }
 
         @Override

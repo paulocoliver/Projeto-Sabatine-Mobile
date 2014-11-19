@@ -14,6 +14,7 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         UsuarioDAO usuarioDAO = new UsuarioDAO(getApplicationContext());
         //usuarioDAO.remover();
         Usuario usuario = usuarioDAO.getUsuario();

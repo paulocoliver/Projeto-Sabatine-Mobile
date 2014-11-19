@@ -1,6 +1,7 @@
 package com.example.rest;
 
 import android.util.Base64;
+import android.util.Log;
 import com.example.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.internal.Primitives;
@@ -20,14 +21,12 @@ import java.util.Map;
 abstract public class RestAbstract {
 
     protected String endPoint = "http://ec2-54-191-139-233.us-west-2.compute.amazonaws.com/";
-    protected String resource = "";
+    public String resource = "";
 
-    protected Gson gson;
 
     protected RestRequest restRequest;
 
     private void init() {
-        gson = new Gson();
         restRequest = new RestRequest();
         restRequest.addHeader("X-API-KEY", "d2UyM3dlMjN3ZTIz");
     }
@@ -49,33 +48,12 @@ abstract public class RestAbstract {
     }
 
 
-    public <T>List getList (Class<T> classOfT) {
-        RestResponse res = restRequest.get(endPoint+resource);
-        if (res.getStatusCode() == 200) {
-            String json = res.getContent();
-            Object object = gson.fromJson(json, (Type)classOfT);
-            Type collectionType = new TypeToken<List<T>>(){}.getType();
-            List<T> lista = gson.fromJson(json, collectionType);
-            return lista;
-        }
-        return null;
-    }
-
-    public <T> T  get (int id, Class<T> classOfT) {
-        RestResponse res = restRequest.get(endPoint+resource+id);
-        if (res.getStatusCode() == 200) {
-            String json = res.getContent();
-            Object object = gson.fromJson(json, (Type)classOfT);
-            return Primitives.wrap(classOfT).cast(object);
-        }
-        return null;
-    }
-
     public RestResponse get (int id) {
         return restRequest.get(endPoint+resource+id);
     }
 
     public RestResponse post (String json) {
+        Log.d("endPoint+resource", endPoint+resource);
         return restRequest.post(endPoint+resource, json);
     }
 
