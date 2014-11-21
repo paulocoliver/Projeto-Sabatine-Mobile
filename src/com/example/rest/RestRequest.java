@@ -44,9 +44,24 @@ public class RestRequest {
 
     private void processResponse(HttpResponse response) {
         StatusLine statusLine = response.getStatusLine();
-        Log.i("StatusCode", statusLine.getStatusCode()+"");
+
         restResponse.setStatusCode(statusLine.getStatusCode());
-        restResponse.setContent(this.getContent(response));
+        String content = this.getContent(response);
+
+        //Log.i("getContent", content);
+        //Log.i("StatusCode", statusLine.getStatusCode()+"");
+
+        try {
+            JSONObject jsonObject = new JSONObject(content);
+            if (jsonObject.getString("status").equalsIgnoreCase("success")) {
+                restResponse.setSuccess(true);
+
+            }
+            restResponse.setContent(jsonObject.getString("result"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private StringEntity setContent(String json) {

@@ -74,16 +74,16 @@ public class Usuario {
 
     public boolean login (Context context) {
         RestResponse res = usuarioRest.login(this);
-        if (res.getStatusCode() == 200) {
+        if (res.isSuccess()) {
 
-            if (res.getContent() != null && res.getContent().isEmpty()) {
+            //if (res.getContent() != null && res.getContent().isEmpty()) {
 
-                Log.d("Json return", res.getContent());
+                Log.d("Json return user", res.getContent());
 
                 this.setAll(usuarioRest.fromJson(res.getContent()));
                 UsuarioDAO usuarioDAO = new UsuarioDAO(context);
                 usuarioDAO.salvar(this);
-            }
+            //}
             return true;
         }
 

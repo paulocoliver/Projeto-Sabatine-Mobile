@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+            android:id="@+id/action_transacoes"
+            android:showAsAction="never"
+            android:title="Transações"/>
+
+    <item
+            android:id="@+id/action_categorias"
+            android:showAsAction="never"
+            android:title="Categorias"/>
+
+    <item
+            android:id="@+id/action_configuracoes"
+            android:showAsAction="never"
+            android:title="Configurações"/>
+
+    <item
+            android:id="@+id/action_logout"
+            android:showAsAction="never"
+            android:title="Sair"/>
+
+</menu>
