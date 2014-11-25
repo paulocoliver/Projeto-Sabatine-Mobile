@@ -75,15 +75,9 @@ public class Usuario {
     public boolean login (Context context) {
         RestResponse res = usuarioRest.login(this);
         if (res.isSuccess()) {
-
-            //if (res.getContent() != null && res.getContent().isEmpty()) {
-
-                Log.d("Json return user", res.getContent());
-
-                this.setAll(usuarioRest.fromJson(res.getContent()));
-                UsuarioDAO usuarioDAO = new UsuarioDAO(context);
-                usuarioDAO.salvar(this);
-            //}
+            this.setAll(usuarioRest.fromJson(res.getContent()));
+            UsuarioDAO usuarioDAO = new UsuarioDAO(context);
+            usuarioDAO.salvar(this);
             return true;
         }
 
@@ -96,14 +90,12 @@ public class Usuario {
 
     }
 
-    public boolean create(Context context, Usuario usuario) {
-        RestResponse res = usuarioRest.post(usuarioRest.toJson(usuario));
-        if (res.getStatusCode()  == 201) {
-            if (res.getContent() != null && res.getContent().isEmpty()) {
-                this.setAll(usuarioRest.fromJson(res.getContent()));
-                UsuarioDAO usuarioDAO = new UsuarioDAO(context);
-                usuarioDAO.salvar(this);
-            }
+    public boolean create(Context context) {
+        RestResponse res = usuarioRest.post(usuarioRest.toJson(this));
+        if (res.isSuccess()) {
+            this.setAll(usuarioRest.fromJson(res.getContent()));
+            UsuarioDAO usuarioDAO = new UsuarioDAO(context);
+            usuarioDAO.salvar(this);
             return true;
         }
         return false;

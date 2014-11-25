@@ -18,13 +18,11 @@ public class UsuarioRest extends RestAbstract {
 
 
     public UsuarioRest() {
-        this.resource = "usuario/";
+        this.resource = "usuario";
     }
 
 
     public Usuario fromJson(String jsonString) {
-        //return gson.fromJson(json, Usuario.class);
-
         Usuario usuario = new Usuario();
         try {
             JSONObject userObject = new JSONObject(jsonString);
@@ -41,8 +39,6 @@ public class UsuarioRest extends RestAbstract {
     }
 
     public String toJson(Usuario usuario) {
-        //Gson gson = new GsonBuilder().create();
-        //String json = gson.toJson(usuario);
         JSONObject object = new JSONObject();
         try {
             object.put("id", usuario.getId());
@@ -57,7 +53,7 @@ public class UsuarioRest extends RestAbstract {
     }
 
     public RestResponse login(Usuario usuario) {
-        resource += "login";
+        resource += "/login";
 
         String json = this.toJson(usuario);
         Log.d("json encode", json);

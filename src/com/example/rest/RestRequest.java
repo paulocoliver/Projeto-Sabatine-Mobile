@@ -48,14 +48,13 @@ public class RestRequest {
         restResponse.setStatusCode(statusLine.getStatusCode());
         String content = this.getContent(response);
 
-        //Log.i("getContent", content);
+        Log.i("Result Content", content);
         //Log.i("StatusCode", statusLine.getStatusCode()+"");
 
         try {
             JSONObject jsonObject = new JSONObject(content);
             if (jsonObject.getString("status").equalsIgnoreCase("success")) {
                 restResponse.setSuccess(true);
-
             }
             restResponse.setContent(jsonObject.getString("result"));
         } catch (JSONException e) {
@@ -115,8 +114,6 @@ public class RestRequest {
     @SuppressLint({ "NewApi", "NewApi", "NewApi" })
     public RestResponse post(String url, String json) {
 
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -124,6 +121,9 @@ public class RestRequest {
         HttpPost httpPost = new HttpPost(url);
         for (String key : headers.keySet())
             httpPost.addHeader(key, headers.get(key));
+
+        Log.i("url", url);
+        Log.i("json", json);
 
         try {
             httpPost.setEntity(this.setContent(json));
@@ -136,8 +136,6 @@ public class RestRequest {
         } catch (IOException e) {
             Log.i("IOException ", e.getMessage());
         }
-
-
         //Log.i("getContent", restResponse.getContent());
 
         return restResponse;
