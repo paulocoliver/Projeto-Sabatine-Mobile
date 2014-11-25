@@ -19,5 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".CategoriaActivity"/>
+        <activity android:name=".ConfiguracaoActivity"/>
     </application>
 </manifest>

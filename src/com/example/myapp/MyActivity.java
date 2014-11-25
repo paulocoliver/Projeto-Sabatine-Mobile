@@ -1,14 +1,11 @@
 package com.example.myapp;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.example.dao.UsuarioDAO;
 import com.example.model.Usuario;
 import android.content.Intent;
 
-public class MyActivity extends Activity {
+public class MyActivity extends AbstractActivity {
     /**
      * Called when the activity is first created.
      */
@@ -32,27 +29,4 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.geral, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_categorias:
-                //newGame();
-                return true;
-            case R.id.action_logout:
-                UsuarioDAO usuarioDAO = new UsuarioDAO(getApplicationContext());
-                usuarioDAO.remover();
-                Intent intentLogin = new Intent(this, LoginActivity.class);
-                startActivity(intentLogin);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }
