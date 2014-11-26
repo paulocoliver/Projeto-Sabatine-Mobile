@@ -29,7 +29,7 @@ public class RegisterActivity extends AbstractLoginActivity {
 
         setContentView(R.layout.activity_register);
 
-        txtNome = (EditText) findViewById(R.id.txt_nome);
+        txtNome = (EditText) findViewById(R.id.txt_categoria);
         txtEmail = (EditText) findViewById(R.id.txt_email);
         txtSenha = (EditText) findViewById(R.id.txt_senha);
 

@@ -22,6 +22,6 @@
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".CategoriaActivity"/>
         <activity android:name=".ConfiguracaoActivity"/>
-
+        <activity android:name=".AddCategoriaActivity"/>
     </application>
 </manifest>

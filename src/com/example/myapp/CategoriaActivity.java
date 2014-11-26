@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +26,8 @@ import java.util.List;
  */
 public class CategoriaActivity extends AbstractActivity {
 
+    public final static String EXTRA_ID_CAT = "com.example.myapp.ID_CAT";
     ListView listView;
-
     private String[] values = {};
 
 
@@ -52,10 +53,8 @@ public class CategoriaActivity extends AbstractActivity {
                 if (jArray != null) {
                     for (int i=0; i<jArray.length(); i++) {
                         JSONObject userObject = new JSONObject(jArray.get(i).toString());
-
                         valores.add(userObject.getString("id")+" - "+userObject.getString("titulo"));
-
-                        Log.i("rest"+i, userObject.getString("titulo"));
+                        //Log.i("rest"+i, userObject.getString("titulo"));
                     }
                 }
 
@@ -67,31 +66,34 @@ public class CategoriaActivity extends AbstractActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, valores);
         listView.setAdapter(adapter);
-
-        // ListView Item Click Listener
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // ListView Clicked item index
                 int itemPosition = position;
-
-                // ListView Clicked item value
                 String itemValue = (String) listView.getItemAtPosition(position);
 
                 String[] tokens = itemValue.split(" - ");
+                Toast.makeText(getApplicationContext(), "  id : " + tokens[0], Toast.LENGTH_LONG).show();
 
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  id : " + tokens[0], Toast.LENGTH_LONG)
-                        .show();
-
+                Intent intent = new Intent(getApplicationContext(), AddCategoriaActivity.class);
+                intent.putExtra(EXTRA_ID_CAT, Integer.parseInt(tokens[0]));
+                startActivity(intent);
             }
 
         });
 
+
+        findViewById(R.id.btn_add_cat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddCategoriaActivity.class);
+                intent.putExtra(EXTRA_ID_CAT, "");
+                startActivity(intent);
+            }
+        });
 
     }
 }

@@ -80,7 +80,7 @@ abstract public class RestAbstract {
     }
 
     public RestResponse get (int id) {
-        return restRequest.get(endPoint+resource+id);
+        return restRequest.get(endPoint+resource+"/"+id);
     }
 
     public RestResponse post (String json) {
