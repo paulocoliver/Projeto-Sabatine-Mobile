@@ -6,16 +6,28 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.dao.UsuarioDAO;
+import com.example.model.Usuario;
 
 /**
  * Created by paulo on 24/11/14.
  */
 public class AbstractActivity extends Activity {
 
+    Usuario usuarioLogado;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_categoria);
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO(getApplicationContext());
+        //usuarioDAO.remover();
+        usuarioLogado = usuarioDAO.getUsuario();
+
+        if (usuarioLogado.getEmail() == null || usuarioLogado.getEmail().isEmpty()) {
+            Intent intentLogin = new Intent(this, LoginActivity.class);
+            startActivity(intentLogin);
+            finish();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

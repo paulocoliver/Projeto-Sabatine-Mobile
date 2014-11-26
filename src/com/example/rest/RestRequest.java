@@ -96,10 +96,16 @@ public class RestRequest {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        Log.i("url", url);
+
         HttpClient client = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        for (String key : headers.keySet())
+        for (String key : headers.keySet()) {
+            Log.i("headers: "+key, headers.get(key));
             httpGet.addHeader(key, headers.get(key));
+        }
+
+        httpGet.addHeader("Authorization", "Basic Yjpk");
 
         try {
             HttpResponse response = client.execute(httpGet);

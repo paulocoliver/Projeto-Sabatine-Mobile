@@ -14,16 +14,6 @@ public class MyActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
 
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO(getApplicationContext());
-        //usuarioDAO.remover();
-        Usuario usuario = usuarioDAO.getUsuario();
-
-        if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
-            Intent intentLogin = new Intent(this, LoginActivity.class);
-            startActivity(intentLogin);
-            finish();
-        }
-
         // intent.putExtra(EXTRA_ID_PORTAL, id_portal);
 
         setContentView(R.layout.main);

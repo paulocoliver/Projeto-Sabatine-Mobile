@@ -1,14 +1,17 @@
 package com.example.rest;
 
+
 import android.util.Base64;
 import android.util.Log;
 import com.example.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.internal.Primitives;
 import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,13 +43,41 @@ abstract public class RestAbstract {
         setAuthUsuario(usuario);
     }
 
+    // JSONObject userObject = new JSONObject(jsonString);
+
     public void setAuthUsuario(Usuario usuario) {
         if (usuario.getEmail() != null || !usuario.getEmail().isEmpty()) {
             String auth = usuario.getEmail() + ":" + usuario.getSenha();
-            restRequest.addHeader("Authorization", "Basic " + Base64.encodeToString(auth.getBytes(), Base64.DEFAULT));
+            byte[] data = new byte[0];
+            try {
+                data = auth.getBytes("UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            String base64 = Base64.encodeToString(data, Base64.DEFAULT);
+
+
+            //String authorizationString = "Basic " + Base64.encode(base).toString();
+
+
+            //String authorizationString = "Basic " + new String(new Base64().encode(base));
+
+            //byte[] authEncBytes = Base64.(auth.getBytes());
+            //String authStringEnc = new String(authEncBytes);
+
+            //String Basic = "Basic " + Base64.encodeToString(auth.getBytes(), Base64.DEFAULT);
+
+            String authorizationString = "Basic " + base64;
+            Log.i("Auth Basic", authorizationString);
+            restRequest.addHeader("Authorization", authorizationString);
         }
     }
 
+    public RestResponse getList (Usuario usuario) {
+        //this.setAuthUsuario(usuario);
+        return restRequest.get(endPoint+resource);
+    }
 
     public RestResponse get (int id) {
         return restRequest.get(endPoint+resource+id);
