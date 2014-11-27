@@ -42,12 +42,12 @@ public class CategoriaActivity extends AbstractActivity {
         listView = (ListView) findViewById(R.id.listviewCategoria);
 
 
+
+
         CategoriaRest categoriaRest = new CategoriaRest();
 
         RestResponse res = categoriaRest.getList(usuarioLogado);
         if (res.isSuccess()) {
-
-
             try {
                 JSONArray jArray = new JSONArray(res.getContent());
                 if (jArray != null) {
@@ -61,7 +61,6 @@ public class CategoriaActivity extends AbstractActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, valores);

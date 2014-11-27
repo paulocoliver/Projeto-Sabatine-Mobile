@@ -24,6 +24,8 @@ import java.util.Map;
 abstract public class RestAbstract {
 
     protected String endPoint = "http://ec2-54-191-139-233.us-west-2.compute.amazonaws.com/";
+    //protected String endPoint = "http://webservice.localhost:8080/";
+
     public String resource = "";
 
 
@@ -70,30 +72,43 @@ abstract public class RestAbstract {
 
             String authorizationString = "Basic " + base64;
             Log.i("Auth Basic", authorizationString);
-            restRequest.addHeader("Authorization", authorizationString);
+
+            restRequest.addHeader("Authorization", "Basic Yjpk");
+            //restRequest.addHeader("Authorization", authorizationString);
         }
     }
 
-    public RestResponse getList (Usuario usuario) {
-        //this.setAuthUsuario(usuario);
-        return restRequest.get(endPoint+resource);
+    private String montaUrl(int id) {
+        return endPoint+resource+(id > 0 ? "/"+id : "");
     }
 
-    public RestResponse get (int id) {
-        return restRequest.get(endPoint+resource+"/"+id);
+    public RestResponse getList (Usuario usuario) {
+        this.setAuthUsuario(usuario);
+        return restRequest.get(montaUrl(0));
+    }
+
+    public RestResponse get (Usuario usuario, int id) {
+        this.setAuthUsuario(usuario);
+        return restRequest.get(montaUrl(id));
     }
 
     public RestResponse post (String json) {
-        Log.d("endPoint+resource", endPoint+resource);
-        return restRequest.post(endPoint+resource, json);
+        return restRequest.post(montaUrl(0), json);
     }
 
-    public RestResponse put (int id, String json) {
-        return restRequest.put(endPoint+resource+id, json);
+    public RestResponse post (Usuario usuario,String json) {
+        this.setAuthUsuario(usuario);
+        return restRequest.post(montaUrl(0), json);
     }
 
-    public RestResponse delete (int id) {
-        return restRequest.delete(endPoint+resource+id);
+    public RestResponse put (Usuario usuario, int id, String json) {
+        this.setAuthUsuario(usuario);
+        return restRequest.put(montaUrl(id), json);
+    }
+
+    public RestResponse delete (Usuario usuario, int id) {
+        this.setAuthUsuario(usuario);
+        return restRequest.delete(montaUrl(id));
     }
 
 

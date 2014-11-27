@@ -105,8 +105,6 @@ public class RestRequest {
             httpGet.addHeader(key, headers.get(key));
         }
 
-        httpGet.addHeader("Authorization", "Basic Yjpk");
-
         try {
             HttpResponse response = client.execute(httpGet);
             this.processResponse(response);
@@ -176,8 +174,8 @@ public class RestRequest {
 
         HttpClient client = new DefaultHttpClient();
         HttpDelete httpDelete = new HttpDelete(url);
-        //for (String key : headers.keySet())
-        //    HttpDelete.addHeader(key, headers.get(key));
+        for (String key : headers.keySet())
+            httpDelete.addHeader(key, headers.get(key));
 
         try {
             HttpResponse response = client.execute(httpDelete);

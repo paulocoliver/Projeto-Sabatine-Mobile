@@ -2,6 +2,7 @@ package com.example.rest;
 
 
 import android.util.Log;
+import com.example.model.Categoria;
 import com.example.model.Usuario;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,34 +18,35 @@ public class CategoriaRest extends RestAbstract {
     }
 
 
-    public Usuario fromJson(String jsonString) {
-        Usuario usuario = new Usuario();
+    public Categoria fromJson(String jsonString) {
+        Categoria categoria = new Categoria();
         try {
-            JSONObject userObject = new JSONObject(jsonString);
-            usuario.setId(userObject.getLong("id"));
-            usuario.setNome(userObject.getString("nome"));
-            usuario.setEmail(userObject.getString("email"));
-            usuario.setSenha(userObject.getString("senha"));
+            JSONObject obj = new JSONObject(jsonString);
+            Log.i("titulo categoria", obj.getString("titulo"));
+
+            categoria.setId(obj.getLong("id"));
+            categoria.setId_usuario(obj.getLong("id_usuario"));
+            categoria.setId_categoria_pai(obj.getLong("id_categoria_pai"));
+            categoria.setTitulo(obj.getString("titulo"));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return usuario;
+        return categoria;
     }
 
-    public String toJson(Usuario usuario) {
+    public String toJson(Categoria categoria) {
         JSONObject object = new JSONObject();
         try {
-            object.put("id", usuario.getId());
-            object.put("nome", usuario.getNome());
-            object.put("email", usuario.getEmail());
-            object.put("senha", usuario.getSenha());
+            object.put("id", categoria.getId());
+            object.put("id_usuario", categoria.getId_usuario());
+            object.put("id_categoria_pai", categoria.getId_categoria_pai());
+            object.put("titulo", categoria.getTitulo());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object.toString();
-
     }
 
 }

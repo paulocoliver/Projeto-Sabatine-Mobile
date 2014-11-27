@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import com.example.dao.UsuarioDAO;
 import com.example.model.Usuario;
 
@@ -14,6 +15,10 @@ import com.example.model.Usuario;
 public class AbstractActivity extends Activity {
 
     Usuario usuarioLogado;
+
+    protected void sendMsg(String msg) {
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
